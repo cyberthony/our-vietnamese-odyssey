@@ -80,6 +80,9 @@ Afin d'assurer la compatibilité avec Cloudflare Pages et de contourner définit
 2. **Support de Localisation en Statique** : Pour permettre le pré-rendu statique des routes avec `next-intl`, nous avons déclaré la fonction globale `generateStaticParams()` dans le layout racine [layout.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/layout.tsx) pour les locales `fr` et `vi`, et appelé `setRequestLocale(locale)` dans tous les composants serveurs de pages (`layout.tsx`, `page.tsx`, `blog/page.tsx`, `blog/[slug]/page.tsx`).
 3. **Extraction de données & Parseur léger** : Le contenu brut des articles est lu depuis l'objet typé [src/data/posts.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/data/posts.ts) en mémoire et rendu à l'aide d'un parseur Markdown custom léger en React, supprimant ainsi les lourdes dépendances de compilation dynamique de type `next-mdx-remote`.
 4. **Optimisation des Images** : L'optimisation des images à la volée de Next.js requérant un serveur Node.js actif, elle a été débrayée dans la configuration via `unoptimized: true` pour convenir aux hébergements statiques comme Cloudflare Pages.
+5. **Gestion de la Redirection Racine (/)** : L'export statique n'exécutant plus de middleware côté serveur pour rediriger la racine `/` vers `/fr` (langue par défaut), nous avons mis en place un double mécanisme :
+   * Une page racine [src/app/page.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/page.tsx) effectuant une redirection côté client via Next.js.
+   * Un fichier de configuration [public/_redirects](file:///d:/Odyssey/our-vietnamese-odyssey/public/_redirects) copié à la racine du dossier de déploiement (`/out/_redirects`) pour indiquer à la couche CDN de Cloudflare Pages d'effectuer une redirection Edge instantanée en code HTTP 302 vers `/fr`.
 
 ### C. Gestion des promesses d'API dynamiques (Next.js 15+)
 Dans Next.js 15+, les propriétés comme `params` de pages et layouts sont des Promises.
