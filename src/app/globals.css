@@ -45,3 +45,78 @@ body {
   background-color: #D4A373;
   color: #0D0D0E;
 }
+
+/* ── Leaflet Map overrides ── */
+
+/* Border-radius on the map container */
+.leaflet-container {
+  border-radius: 1.5rem;
+}
+
+/* Pulse animation for selected city marker */
+@keyframes markerPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* City pin marker hover */
+.odyssey-pin-marker {
+  transition: filter 0.2s ease !important;
+  cursor: pointer !important;
+}
+.odyssey-pin-marker:hover {
+  filter: brightness(1.15) drop-shadow(0 6px 12px rgba(0,0,0,0.35)) !important;
+}
+
+/* City tooltip (permanent label) — hide Leaflet default tip box */
+.odyssey-city-tooltip {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.odyssey-city-tooltip::before {
+  display: none !important; /* hide the default tip arrow */
+}
+
+/* Popup styling for dark mode */
+.dark .leaflet-popup-content-wrapper {
+  background: #18181b;
+  color: #e4e4e7;
+  border: 1px solid #27272a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+.dark .leaflet-popup-tip {
+  background: #18181b;
+}
+
+/* Zoom control styling (we hide default, but just in case) */
+.leaflet-control-zoom {
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+.dark .leaflet-control-zoom {
+  border-color: #27272a !important;
+}
+.leaflet-control-zoom a {
+  background: #fff !important;
+  color: #52525b !important;
+}
+.dark .leaflet-control-zoom a {
+  background: #18181b !important;
+  color: #a1a1aa !important;
+}
+
+/* Smooth tile transitions when theme switches */
+.leaflet-tile {
+  transition: filter 0.3s ease;
+}

@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
   // Enable maximal bundle optimizations and tree-shaking
   experimental: {
-    optimizePackageImports: ['framer-motion', 'next-intl'],
+    optimizePackageImports: ['framer-motion', 'next-intl', 'leaflet', 'react-leaflet'],
   }
 };
 
