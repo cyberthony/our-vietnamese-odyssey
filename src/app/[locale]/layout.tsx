@@ -19,6 +19,8 @@ const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
+export const runtime = 'edge';
+
 export const metadata: Metadata = {
   title: "Our Vietnamese Odyssey",
   description: "Un carnet de voyage et album photo familial premium",
