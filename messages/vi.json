@@ -1,0 +1,148 @@
+{
+  "HomePage": {
+    "title": "Our Vietnamese Odyssey",
+    "subtitle": "Chuyến du lịch gia đình qua Việt Nam và Hàn Quốc",
+    "description": "Nhật ký hành trình và album ảnh để sống lại cuộc phiêu lưu 40 ngày của chúng tôi.",
+    "welcome": "Chào mừng đến với nhật ký hành trình gia đình của chúng tôi",
+    "explore": "Khám phá lịch trình",
+    "viewBlog": "Đọc nhật ký hành trình"
+  },
+  "Navigation": {
+    "home": "Trang chủ",
+    "itinerary": "Lịch trình",
+    "blog": "Blog",
+    "miam": "Miam Miam",
+    "photos": "Hình ảnh"
+  },
+  "ItineraryPage": {
+    "title": "Lịch Trình Chi Tiết",
+    "subtitle": "Hành trình trải nghiệm 40 ngày tại Hàn Quốc và Việt Nam"
+  },
+  "BlogPage": {
+    "title": "Nhật Ký Hành Trình",
+    "subtitle": "Những câu chuyện, chia sẻ kinh nghiệm và kỷ niệm lưu lại mỗi ngày",
+    "searchPlaceholder": "Tìm kiếm điểm đến, đền chùa hoặc món ăn...",
+    "filterAll": "Tất cả các chặng",
+    "filterKorea": "Hàn Quốc",
+    "filterVietnam": "Việt Nam"
+  },
+  "MiamPage": {
+    "title": "Bản Đồ Ẩm Thực",
+    "subtitle": "Các món ăn đặc trưng được gia đình trải nghiệm và đánh giá",
+    "filterAll": "Tất cả các món",
+    "filterNorth": "Miền Bắc",
+    "filterCentral": "Miền Trung",
+    "filterSouth": "Miền Nam",
+    "rating": "Đánh giá của gia đình",
+    "origin": "Xuất xứ",
+    "dishes": {
+      "pho": {
+        "name": "Phở Bò (Hà Nội)",
+        "desc": "Nước dùng bò truyền thống được ninh nhiều giờ, ăn kèm bánh phở mềm và rau thơm tươi ngon. Một biểu tượng ẩm thực tại Hà Nội."
+      },
+      "banhmi": {
+        "name": "Bánh Mì (Hà Nội)",
+        "desc": "Ổ bánh mì giòn tan được chế biến với patê thơm béo, thịt nướng, đồ chua giòn giòn và một chút rau mùi."
+      },
+      "bunbohue": {
+        "name": "Bún Bò Huế (Huế)",
+        "desc": "Món bún sợi to đặc trưng của Huế trong nước dùng bò cay nồng và thơm mùi sả. Hương vị đậm đà khó quên của miền Trung."
+      },
+      "caolau": {
+        "name": "Cao Lầu (Hội An)",
+        "desc": "Món mì độc nhất vô nhị chỉ có tại Hội An. Sợi mì được chế biến bằng nước giếng Bá Lễ cổ xưa, ăn kèm thịt xá xíu và ram giòn."
+      }
+    }
+  },
+  "PhotosPage": {
+    "title": "Khoảnh Khắc Ghi Lại",
+    "subtitle": "Những kỷ niệm đẹp nhất của chúng tôi được lưu giữ qua ống kính",
+    "filterAll": "Tất cả ảnh",
+    "filterSeoul": "Seoul",
+    "filterJeju": "Đảo Jeju",
+    "filterHanoi": "Hà Nội",
+    "filterCentral": "Miền Trung Việt Nam"
+  },
+  "Itinerary": {
+    "steps": {
+      "seoul": {
+        "title": "Seoul",
+        "date": "30 Tháng 6 – 02 Tháng 7 2026",
+        "hotel": "The Stay Classic Hotel Myeongdong",
+        "desc": "Điểm dừng đầu tiên của chuyến đi. Khám phá nét văn hóa hiện đại và truyền thống của Hàn Quốc."
+      },
+      "jeju": {
+        "title": "Đảo Jeju",
+        "date": "02 Tháng 7 – 04 Tháng 7 2026",
+        "hotel": "Gloucester Hotel Jeju",
+        "desc": "Hành trình hòa mình vào thiên nhiên đảo núi lửa Jeju, chiêm ngưỡng thác nước hùng vĩ và bãi biển đen đặc trưng."
+      },
+      "hanoi1": {
+        "title": "Hà Nội",
+        "date": "05 Tháng 7 – 08 Tháng 7 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Đặt chân đến Việt Nam. Khám phá thủ đô nghìn năm văn hiến, dạo quanh hồ Hoàn Kiếm và trải nghiệm ẩm thực đường phố."
+      },
+      "hoian": {
+        "title": "Hội An",
+        "date": "08 Tháng 7 – 09 Tháng 7 2026",
+        "hotel": "Le Pavillon Hoi An Gallery Hotel & Spa",
+        "desc": "Vẻ đẹp vượt thời gian của phố cổ lung linh ánh đèn lồng bên dòng sông Hoài thơ mộng."
+      },
+      "danang": {
+        "title": "Đà Nẵng",
+        "date": "09 Tháng 7 – 12 Tháng 7 2026",
+        "hotel": "Elite Riverlight Boutique Hotel by Elite24",
+        "desc": "Thư giãn bên bãi biển cát trắng mịn, chiêm ngưỡng Cầu Rồng phun lửa và khám phá Ngũ Hành Sơn."
+      },
+      "hue": {
+        "title": "Huế",
+        "date": "12 Tháng 7 – 14 Tháng 7 2026",
+        "hotel": "Melia Vinpearl Hue",
+        "desc": "Tham quan Đại Nội cổ kính, lăng tẩm hoàng gia và trải nghiệm du thuyền lãng mạn trên dòng sông Hương."
+      },
+      "laguna": {
+        "title": "Laguna Lăng Cô",
+        "date": "14 Tháng 7 – 16 Tháng 7 2026",
+        "hotel": "Căn hộ gia đình + Laguna Lăng Cô",
+        "desc": "Nghỉ dưỡng sang trọng và yên bình cùng gia đình giữa bãi biển hoang sơ và đồi núi xanh mướt."
+      },
+      "quangbinh": {
+        "title": "Quảng Bình",
+        "date": "16 Tháng 7 – 17 Tháng 7 2026",
+        "hotel": "Khách sạn (nhỏ)",
+        "desc": "Khám phá các hang động kỳ vĩ trong vườn quốc gia Phong Nha - Kẻ Bàng, di sản thiên nhiên thế giới UNESCO."
+      },
+      "hometown": {
+        "title": "Quê nhà",
+        "date": "17 Tháng 7 – 24 Tháng 7 2026",
+        "hotel": "Nhà gia đình",
+        "desc": "Thời gian quý báu bên người thân, sum họp gia đình và cùng chia sẻ những nét văn hóa truyền thống."
+      },
+      "vinh": {
+        "title": "Vinh",
+        "date": "24 Tháng 7 – 27 Tháng 7 2026",
+        "hotel": "Khách sạn địa phương",
+        "desc": "Điểm dừng chân ấm áp tại Nghệ An, quê hương của Bác Hồ kính yêu."
+      },
+      "hanoi2": {
+        "title": "Hà Nội (Quay lại)",
+        "date": "27 Tháng 7 – 07 Tháng 8 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Trở lại thủ đô để tiếp tục những chuyến khám phá ẩm thực phong phú và bảo tàng lịch sử."
+      },
+      "ninhbinh": {
+        "title": "Ninh Bình",
+        "date": "07 Tháng 8 – 09 Tháng 8 2026",
+        "hotel": "Homestay giữa đồng lúa",
+        "desc": "Hạ Long trên cạn, trải nghiệm chèo thuyền trôi theo dòng nước len lỏi qua các vách núi đá vôi kỳ vĩ."
+      },
+      "hanoi3": {
+        "title": "Hà Nội (Ra về)",
+        "date": "09 Tháng 8 – 14 Tháng 8 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Những giây phút mua sắm quà lưu niệm cuối cùng, thưởng thức các món miam miam và khởi hành về lại Paris."
+      }
+    }
+  }
+}

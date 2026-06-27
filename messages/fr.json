@@ -1,0 +1,148 @@
+{
+  "HomePage": {
+    "title": "Our Vietnamese Odyssey",
+    "subtitle": "Un voyage familial à travers le Vietnam et la Corée du Sud",
+    "description": "Un carnet de voyage et album photo pour revivre notre aventure de 40 jours.",
+    "welcome": "Bienvenue sur notre carnet de bord familial",
+    "explore": "Découvrir notre itinéraire",
+    "viewBlog": "Lire le journal de bord"
+  },
+  "Navigation": {
+    "home": "Accueil",
+    "itinerary": "Itinéraire",
+    "blog": "Blog",
+    "miam": "Miam Miam",
+    "photos": "Photos"
+  },
+  "ItineraryPage": {
+    "title": "Notre Itinéraire de Voyage",
+    "subtitle": "40 jours de périple en Corée du Sud et au Vietnam"
+  },
+  "BlogPage": {
+    "title": "Notre Journal de Voyage",
+    "subtitle": "Récits, conseils et souvenirs de route au fil des jours",
+    "searchPlaceholder": "Rechercher une destination, un temple ou un plat...",
+    "filterAll": "Toutes les étapes",
+    "filterKorea": "Corée du Sud",
+    "filterVietnam": "Vietnam"
+  },
+  "MiamPage": {
+    "title": "Répertoire Gourmand",
+    "subtitle": "Les spécialités culinaires testées et notées par la famille",
+    "filterAll": "Toutes les spécialités",
+    "filterNorth": "Nord du Vietnam",
+    "filterCentral": "Centre du Vietnam",
+    "filterSouth": "Sud du Vietnam",
+    "rating": "Avis de la famille",
+    "origin": "Origine",
+    "dishes": {
+      "pho": {
+        "name": "Phở Bò (Hanoi)",
+        "desc": "Le bouillon de bœuf traditionnel mijoté de longues heures, garni de nouilles de riz tendres et d'herbes aromatiques fraîches. Une institution à Hanoi."
+      },
+      "banhmi": {
+        "name": "Bánh Mì (Hanoi)",
+        "desc": "La baguette croustillante héritée de l'époque coloniale, revisitée avec du pâté onctueux, de la viande grillée, des pickles acidulés et une touche de coriandre."
+      },
+      "bunbohue": {
+        "name": "Bún Bò Huế (Huế)",
+        "desc": "Une soupe de nouilles de riz de gros calibre dans un bouillon de bœuf épicé et parfumé à la citronnelle. Un plat typique et puissant en goût du Centre."
+      },
+      "caolau": {
+        "name": "Cao Lầu (Hoi An)",
+        "desc": "Plat de nouilles unique et exclusif à Hoi An. Les nouilles sont préparées avec l'eau de puits locaux spécifiques, garnies de porc mariné et de crackers croustillants."
+      }
+    }
+  },
+  "PhotosPage": {
+    "title": "Instants Suspendus",
+    "subtitle": "Nos plus beaux souvenirs photographiés au fil de l'Odyssée",
+    "filterAll": "Toutes les photos",
+    "filterSeoul": "Séoul",
+    "filterJeju": "Île de Jeju",
+    "filterHanoi": "Hanoi",
+    "filterCentral": "Centre Vietnam"
+  },
+  "Itinerary": {
+    "steps": {
+      "seoul": {
+        "title": "Séoul",
+        "date": "30 Juin – 02 Juillet 2026",
+        "hotel": "The Stay Classic Hotel Myeongdong",
+        "desc": "Première étape de notre voyage. Découverte de la culture moderne et traditionnelle de la Corée du Sud."
+      },
+      "jeju": {
+        "title": "Île de Jeju",
+        "date": "02 Juillet – 04 Juillet 2026",
+        "hotel": "Gloucester Hotel Jeju",
+        "desc": "Escapade nature sur l'île volcanique de Jeju, cascades magnifiques et plages volcaniques."
+      },
+      "hanoi1": {
+        "title": "Hanoi",
+        "date": "05 Juillet – 08 Juillet 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Arrivée au Vietnam. Découverte de la capitale, du lac Hoan Kiem et de la cuisine de rue."
+      },
+      "hoian": {
+        "title": "Hoi An",
+        "date": "08 Juillet – 09 Juillet 2026",
+        "hotel": "Le Pavillon Hoi An Gallery Hotel & Spa",
+        "desc": "Charme intemporel de la vieille ville et de ses lanternes colorées au bord du fleuve."
+      },
+      "danang": {
+        "title": "Da Nang",
+        "date": "09 Juillet – 12 Juillet 2026",
+        "hotel": "Elite Riverlight Boutique Hotel by Elite24",
+        "desc": "Détente au bord des plages de sable fin et découverte du Pont du Dragon et des montagnes de Marbre."
+      },
+      "hue": {
+        "title": "Huế",
+        "date": "12 Juillet – 14 Juillet 2026",
+        "hotel": "Melia Vinpearl Hue",
+        "desc": "Cité Impériale, tombeaux des empereurs et balade romantique sur la rivière des Parfums."
+      },
+      "laguna": {
+        "title": "Laguna Lăng Cô",
+        "date": "14 Juillet – 16 Juillet 2026",
+        "hotel": "Appartement famille + Laguna Lăng Cô",
+        "desc": "Repos luxueux et calme en famille entre plage et collines verdoyantes."
+      },
+      "quangbinh": {
+        "title": "Quảng Bình",
+        "date": "16 Juillet – 17 Juillet 2026",
+        "hotel": "Hôtel (petit)",
+        "desc": "Découverte des grottes karstiques spectaculaires, classées au patrimoine de l'UNESCO."
+      },
+      "hometown": {
+        "title": "Hometown",
+        "date": "17 Juillet – 24 Juillet 2026",
+        "hotel": "Maison familiale",
+        "desc": "Temps précieux avec la famille, retrouvailles et partage des traditions locales."
+      },
+      "vinh": {
+        "title": "Vinh",
+        "date": "24 Juillet – 27 Juillet 2026",
+        "hotel": "Hôtel local",
+        "desc": "Étape de transit chaleureuse dans la province natale de Hoa et d'oncle Ho."
+      },
+      "hanoi2": {
+        "title": "Hanoi (Retour)",
+        "date": "27 Juillet – 07 Août 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Retour à la capitale pour approfondir nos explorations culinaires et visites culturelles."
+      },
+      "ninhbinh": {
+        "title": "Ninh Bình",
+        "date": "07 Août – 09 Août 2026",
+        "hotel": "Homestay au milieu des rizières",
+        "desc": "La baie d'Halong terrestre, balades en barque traditionnelle au milieu des pics karstiques."
+      },
+      "hanoi3": {
+        "title": "Hanoi (Départ)",
+        "date": "09 Août – 14 Août 2026",
+        "hotel": "Somerset Hoa Binh",
+        "desc": "Derniers instants d'achat de souvenirs, derniers miam miam et retour vers Paris."
+      }
+    }
+  }
+}

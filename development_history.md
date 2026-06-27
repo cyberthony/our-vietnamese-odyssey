@@ -1,0 +1,113 @@
+# Historique de Développement & État du Projet - Our Vietnamese Odyssey
+
+Ce document sert de guide de reprise pour tout agent d'IA (Antigravity, Claude Code, etc.) ou développeur reprenant les travaux sur cette application. Il contient l'état actuel de la base de code, les détails de l'architecture, et les suggestions d'évolutions futures.
+
+---
+
+## 📋 Présentation du Projet
+**"Our Vietnamese Odyssey"** est un carnet de voyage et album photo familial interactif premium racontant le périple de 40 jours d'Anthony, Hoa, Émilie et Yaya en Corée du Sud et au Vietnam (juillet - août 2026).
+Il se distingue par son design haut de gamme d'inspiration éditoriale, son respect des espaces blancs, son support multilingue (Français et Vietnamien), son mode sombre et ses composants interactifs sur mesure.
+
+---
+
+## 🛠️ Stack Technique & Dépendances
+- **Framework** : Next.js 16.2.9 (App Router, compilation Turbopack)
+- **Runtime & Versioning** : Node.js (v24.18.0)
+- **Langage** : TypeScript
+- **Styling** : Tailwind CSS v4 (avec variables CSS modernes configurées dans `globals.css`)
+- **Animations** : Framer Motion v12.4.20
+- **Internationalisation (i18n)** : `next-intl` v4.13.0 (gestion automatique des locales sous `/[locale]`)
+- **Moteur MDX** : `next-mdx-remote` v6.0.0 (rendu dynamique d'articles Markdown locaux côté serveur)
+
+---
+
+## 📂 Architecture des Dossiers
+
+```
+our-vietnamese-odyssey/
+├── content/                     # Contenu rédigé du blog
+│   └── blog/                    # Articles au format MDX (.mdx)
+├── messages/                    # Fichiers de dictionnaires i18n
+│   ├── fr.json                  # Traductions françaises
+│   └── vi.json                  # Traductions vietnamiennes
+├── public/
+│   └── images/                  # Galerie d'images locales du voyage
+├── src/
+│   ├── app/
+│   │   └── [locale]/            # Routage dynamique i18n Next.js
+│   │       ├── blog/            # Pages du blog
+│   │       │   ├── [slug]/      # Route dynamique de l'article individuel MDX
+│   │       │   ├── BlogPageClient.tsx
+│   │       │   └── page.tsx     # Serveur index de blog (charge les posts)
+│   │       ├── itinerary/       # Page Itinéraire (regroupe Carte et Timeline)
+│   │       ├── miam/            # Page de répertoire gastronomique
+│   │       ├── photos/          # Galerie photo Masonry filtrable
+│   │       ├── layout.tsx       # Layout global injectant polices et providers
+│   │       └── page.tsx         # Page d'accueil (composants combinés)
+│   ├── components/              # Composants réutilisables
+│   │   ├── BlogCard.tsx         # Carte éditoriale
+│   │   ├── Footer.tsx           # Pied de page
+│   │   ├── Header.tsx           # Navigation bar (avec sélecteurs et menu mobile burger)
+│   │   ├── InteractiveMap.tsx   # Carte vectorielle SVG interactive
+│   │   ├── PhotoMasonry.tsx     # Galerie Masonry asymétrique + Lightbox
+│   │   ├── ThemeProvider.tsx    # Gestionnaire du Dark Mode (React Context)
+│   │   └── Timeline.tsx         # Frise chronologique avec scroll reveal
+│   ├── i18n/                    # Configuration et routing next-intl
+│   │   ├── routing.ts
+│   │   └── request.ts
+│   ├── lib/
+│   │   └── mdx.ts               # Utilitaire d'extraction de frontmatter MDX
+│   └── middleware.ts            # Middleware next-intl pour intercepter la locale
+├── next.config.ts               # Configurations Next.js, pageExtensions, next-intl & MDX
+└── tailwind.config.ts           # Configurations Tailwind CSS complémentaires
+```
+
+---
+
+## ⚙️ Choix d'Architecture Majeurs & Astuces Techniques
+
+### A. Dark Mode sous Tailwind CSS v4
+Dans Tailwind CSS v4, le commutateur classique `darkMode: 'class'` de la version 3 n'existe plus.
+Pour le faire fonctionner sur la base d'une classe `.dark` appliquée sur l'élément racine `<html>`, nous avons déclaré un variant personnalisé en tête de [src/app/globals.css](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/globals.css) :
+```css
+@custom-variant dark (&:where(.dark, .dark *));
+```
+Pour éviter tout **flash blanc** au chargement lorsque le mode sombre est actif (car localStorage est lu côté client), nous injectons un script bloquant synchrone (IIFE) dans le `<head>` du document via [layout.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/layout.tsx) pour ajouter immédiatement la classe `.dark` si nécessaire.
+
+### B. Moteur MDX sans Gray-Matter
+Afin d'éviter d'empiler des bibliothèques obsolètes ou lourdes, nous avons créé un mini-parser de frontmatter regex optimisé dans [src/lib/mdx.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/lib/mdx.ts). Il extrait les en-têtes `---` des fichiers `.mdx` et renvoie les métadonnées typées de manière synchrone et rapide.
+Les corps d'articles MDX sont ensuite compilés à la volée côté serveur à l'aide du composant `<MDXRemote>` fourni par `next-mdx-remote/rsc`.
+
+### C. Gestion des promesses d'API dynamiques (Next.js 15+)
+Dans Next.js 15+, les propriétés comme `params` de pages et layouts sont des Promises.
+Pour récupérer `locale` ou `slug`, il faut obligatoirement faire :
+```typescript
+const { locale, slug } = await params;
+```
+Toute tentative d'accès synchrone (comme un `console.log(params.slug)`) lève une erreur bloquante au runtime.
+
+---
+
+## 📈 Propositions d'Évolutions Futures
+
+Voici les chantiers recommandés pour continuer à enrichir l'application :
+
+### 🌟 1. Interactivité Carte ➔ Timeline
+- **Concept** : Actuellement, la carte et la timeline coexistent de façon statique sur la page itinéraire.
+- **Évolution** : Lier les deux composants. Un clic sur une ville de la carte SVG fait automatiquement défiler (scroll fluide) l'utilisateur jusqu'à la section correspondante dans la Timeline chronologique, ou inversement, survoler un élément de la timeline illumine le point correspondant sur la carte.
+
+### 🔍 2. Recherche Textuelle Globale & Indexation
+- **Concept** : Permettre à l'utilisateur de chercher à la fois dans les recettes de cuisine (Miam), les articles de blog (MDX) et les photos.
+- **Évolution** : Créer une barre de recherche globale dans le Header qui s'ouvre en modale (style Spotlight command menu via la touche `Ctrl+K`) pour naviguer instantanément à travers l'Odyssée.
+
+### 🏷️ 3. Filtres Croisés et Tags pour la Galerie Photos
+- **Concept** : La galerie filtre actuellement par ville principale.
+- **Évolution** : Ajouter un système de tags secondaires (ex : "Famille", "Cuisine", "Nature", "Monuments") sous forme de pilules de filtres croisés avec des transitions animées par Framer Motion (`layoutId` pour des déplacements d'images fluides).
+
+### 💬 4. Zone de Commentaires et Livre d'Or
+- **Concept** : Permettre à la famille et aux proches de laisser des messages.
+- **Évolution** : Mettre en place une section commentaires en bas de chaque article MDX de blog, connectée à une base de données légère (ex: Supabase, Vercel Postgres, Firebase) ou à un système externe comme Giscus (basé sur les discussions GitHub).
+
+### 📊 5. Optimisations de Production & Performance
+- **LCP Images** : Les images imposantes détectées comme LCP (Largest Contentful Paint) par le navigateur gagneraient à recevoir la propriété `priority` (déjà intégrée sur le Hero et les couvertures d'articles de blog).
+- **Smooth Scroll** : Gérer l'attribut `data-scroll-behavior="smooth"` au niveau de l'élément racine pour les transitions de route sans à-coups.
