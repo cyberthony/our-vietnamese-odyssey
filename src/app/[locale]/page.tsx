@@ -1,7 +1,15 @@
 import { getAllPosts } from "@/lib/mdx";
 import HomePageClient from "./HomePageClient";
+import { setRequestLocale } from "next-intl/server";
 
-export default async function Home() {
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Home({ params }: PageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   // Load real MDX posts from local disk
   const posts = await getAllPosts();
   

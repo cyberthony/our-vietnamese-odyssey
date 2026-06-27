@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
@@ -19,8 +19,6 @@ const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
   title: "Our Vietnamese Odyssey",
   description: "Un carnet de voyage et album photo familial premium",
@@ -34,6 +32,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   
   // Validate that the incoming `locale` parameter is valid
   if (!routing.locales.includes(locale as any)) {
@@ -41,7 +40,7 @@ export default async function LocaleLayout({
   }
 
   // Providing all messages to the client side
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <html
@@ -81,4 +80,8 @@ export default async function LocaleLayout({
       </body>
     </html>
   );
+}
+
+export async function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "vi" }];
 }

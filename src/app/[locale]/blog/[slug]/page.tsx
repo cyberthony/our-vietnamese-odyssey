@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import React from "react";
+import { setRequestLocale } from "next-intl/server";
 
 interface PageProps {
   params: Promise<{
@@ -109,7 +110,8 @@ function parseInline(text: string): React.ReactNode[] {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const { slug } = resolvedParams;
+  const { locale, slug } = resolvedParams;
+  setRequestLocale(locale);
   const post = await getPostBySlug(slug);
 
   if (!post) {

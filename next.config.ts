@@ -8,6 +8,10 @@ const withMDX = createMDX({
 });
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: false,
   // Enable maximal bundle optimizations and tree-shaking
