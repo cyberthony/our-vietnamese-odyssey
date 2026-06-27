@@ -74,9 +74,10 @@ Pour le faire fonctionner sur la base d'une classe `.dark` appliquée sur l'él�
 ```
 Pour éviter tout **flash blanc** au chargement lorsque le mode sombre est actif (car localStorage est lu côté client), nous injectons un script bloquant synchrone (IIFE) dans le `<head>` du document via [layout.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/layout.tsx) pour ajouter immédiatement la classe `.dark` si nécessaire.
 
-### B. Moteur MDX sans Gray-Matter
-Afin d'éviter d'empiler des bibliothèques obsolètes ou lourdes, nous avons créé un mini-parser de frontmatter regex optimisé dans [src/lib/mdx.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/lib/mdx.ts). Il extrait les en-têtes `---` des fichiers `.mdx` et renvoie les métadonnées typées de manière synchrone et rapide.
-Les corps d'articles MDX sont ensuite compilés à la volée côté serveur à l'aide du composant `<MDXRemote>` fourni par `next-mdx-remote/rsc`.
+### B. Base de Données Statique & Moteur MDX pour l'Edge Runtime (Cloudflare Pages)
+Afin d'assurer la compatibilité avec le **Edge Runtime** de Cloudflare Pages (qui ne supporte pas les modules Node.js natifs `fs` et `path`), nous avons centralisé les métadonnées et le contenu brut des articles sous forme d'un objet statique typé dans [src/data/posts.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/data/posts.ts).
+L'utilitaire [src/lib/mdx.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/lib/mdx.ts) interroge directement cette structure en mémoire, éliminant ainsi toute opération sur le système de fichiers local tout en conservant une réactivité instantanée.
+Les corps d'articles MDX sont ensuite compilés à la volée côté serveur à l'aide du composant `<MDXRemote>` fourni par `next-mdx-remote/rsc` (qui est pleinement supporté par l'Edge Runtime).
 
 ### C. Gestion des promesses d'API dynamiques (Next.js 15+)
 Dans Next.js 15+, les propriétés comme `params` de pages et layouts sont des Promises.
