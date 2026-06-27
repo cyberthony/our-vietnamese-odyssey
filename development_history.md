@@ -74,10 +74,11 @@ Pour le faire fonctionner sur la base d'une classe `.dark` appliquée sur l'él�
 ```
 Pour éviter tout **flash blanc** au chargement lorsque le mode sombre est actif (car localStorage est lu côté client), nous injectons un script bloquant synchrone (IIFE) dans le `<head>` du document via [layout.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/layout.tsx) pour ajouter immédiatement la classe `.dark` si nécessaire.
 
-### B. Base de Données Statique & Moteur MDX pour l'Edge Runtime (Cloudflare Pages)
-Afin d'assurer la compatibilité avec le **Edge Runtime** de Cloudflare Pages (qui ne supporte pas les modules Node.js natifs `fs` et `path`), nous avons centralisé les métadonnées et le contenu brut des articles sous forme d'un objet statique typé dans [src/data/posts.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/data/posts.ts).
-L'utilitaire [src/lib/mdx.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/lib/mdx.ts) interroge directement cette structure en mémoire, éliminant ainsi toute opération sur le système de fichiers local tout en conservant une réactivité instantanée.
-Les corps d'articles MDX sont ensuite compilés à la volée côté serveur à l'aide du composant `<MDXRemote>` fourni par `next-mdx-remote/rsc` (qui est pleinement supporté par l'Edge Runtime).
+### B. Base de Données Statique & Parseur Markdown Allégé (Cloudflare Pages & Edge Runtime)
+Afin d'assurer la compatibilité totale avec le **Edge Runtime** de Cloudflare Pages et d'optimiser la taille du bundle (pour respecter la limite stricte de taille de fonction de 3 Mo de Cloudflare) :
+1. **Extraction de données** : Le contenu brut des articles et leurs métadonnées sont stockés de manière statique sous forme d'objet typé dans [src/data/posts.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/data/posts.ts). Cela résout l'absence des modules Node.js `fs` et `path` dans le runtime Edge de Cloudflare.
+2. **Parseur Markdown custom léger** : Pour éviter d'importer le compilateur dynamique MDX complet (`next-mdx-remote` et `@mdx-js/mdx` qui pèsent plusieurs mégaoctets et dépassaient le quota de taille de Cloudflare Pages), nous avons écrit un parseur Markdown ultra-léger et performant à base de regex et de rendu React natif directement dans [src/app/[locale]/blog/[slug]/page.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/blog/[slug]/page.tsx). Ce parseur supporte nativement le formatage des titres (`##`, `###`), les listes à puces et numérotées, les paragraphes et le gras (`**text**`).
+3. **Optimisation Next.js** : La minification, la suppression des sourcemaps de production et le ciblage des imports (`optimizePackageImports`) ont été configurés dans [next.config.ts](file:///d:/Odyssey/our-vietnamese-odyssey/next.config.ts) pour réduire au maximum l'empreinte finale.
 
 ### C. Gestion des promesses d'API dynamiques (Next.js 15+)
 Dans Next.js 15+, les propriétés comme `params` de pages et layouts sont des Promises.
