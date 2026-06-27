@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Our Vietnamese Odyssey 🌸✈️
 
-## Getting Started
+**Our Vietnamese Odyssey** est un carnet de voyage et album photo familial premium et moderne documentant un périple familial de 40 jours entre la Corée du Sud et le Vietnam. Il est conçu sous forme de journal de bord et album intemporel, stylisé de façon épurée, fluide et haut de gamme.
 
-First, run the development server:
+---
 
+## 🌟 Caractéristiques Principales
+* **Internationalisation (i18n)** : Support complet du Français (`fr`) et du Vietnamien (`vi`) avec bascule instantanée sans rechargement lourd.
+* **Redirection Edge** : Redirection automatique de la racine `/` vers `/fr` gérée par la couche Edge du CDN.
+* **Design Éditorial Premium** : Mise en page inspirée des magazines de voyage de luxe, avec transitions d'interfaces fluides et support natif du **Mode Sombre** (sans effet de flash blanc).
+* **Album Photo Masonry** : Galerie fluide dynamique avec filtres et visionneuse (lightbox) intégrée.
+* **Journal Intime (Blog)** : Articles rédigés au format Markdown, compilés de façon ultra-optimisée pour un chargement instantané.
+* **Déploiement 100 % Statique (SSG)** : Compilé en fichiers HTML plats pour des temps de chargement records et hébergé sans serveur sur Cloudflare Pages.
+
+---
+
+## 🛠️ Stack Technique
+* **Framework** : Next.js 16 (App Router)
+* **Styling** : Tailwind CSS
+* **Animations** : Framer Motion
+* **Internationalisation** : `next-intl` (mode SSG)
+* **Hébergement** : Cloudflare Pages (dossier de build `/out`)
+
+---
+
+## 🚀 Démarrage Rapide
+
+### 1. Cloner le projet et installer les dépendances
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/cyberthony/our-vietnamese-odyssey.git
+cd our-vietnamese-odyssey
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Lancer en local
+```bash
+npm run dev
+```
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Compiler pour la production
+```bash
+npm run build
+```
+Les fichiers générés sont placés dans le dossier `/out`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📐 Architecture et Reprise de Projet
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Si vous êtes un développeur ou une intelligence artificielle (comme Claude Code) reprenant le développement de ce projet, veuillez consulter les guides détaillés suivants :
+1. **[CLAUDE.md](file:///d:/Odyssey/our-vietnamese-odyssey/CLAUDE.md)** : Raccourcis de commandes et contraintes du runtime pour l'IA.
+2. **[development_history.md](file:///d:/Odyssey/our-vietnamese-odyssey/development_history.md)** : Journal de bord de l'architecture du projet, historique des choix technologiques (moteur Markdown, mode sombre, i18n statique) et pistes d'évolutions recommandées.
