@@ -2,7 +2,7 @@ import { getPostBySlug, getAllPosts } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { compileMDX } from "next-mdx-remote/rsc";
+import React from "react";
 
 interface PageProps {
   params: Promise<{
@@ -29,6 +29,84 @@ export async function generateStaticParams() {
   return paramsList;
 }
 
+// Simple, ultra-lightweight Markdown-to-React parser to avoid loading heavy next-mdx-remote bundles in Edge workers
+function parseMarkdown(text: string) {
+  const lines = text.split("\n");
+  const elements: React.ReactNode[] = [];
+  let keyCounter = 0;
+  
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+    
+    // Header 3
+    if (trimmed.startsWith("### ")) {
+      elements.push(
+        <h3 key={keyCounter++} className="font-serif text-xl font-bold mt-8 mb-4 text-brand-charcoal dark:text-zinc-50">
+          {parseInline(trimmed.substring(4))}
+        </h3>
+      );
+      return;
+    }
+    
+    // Header 2
+    if (trimmed.startsWith("## ")) {
+      elements.push(
+        <h2 key={keyCounter++} className="font-serif text-2xl font-bold mt-10 mb-4 text-brand-charcoal dark:text-zinc-50">
+          {parseInline(trimmed.substring(3))}
+        </h2>
+      );
+      return;
+    }
+    
+    // List item (ordered)
+    if (/^\d+\.\s/.test(trimmed)) {
+      const content = trimmed.replace(/^\d+\.\s/, "");
+      elements.push(
+        <li key={keyCounter++} className="list-decimal ml-6 pl-2 font-sans text-base text-zinc-600 dark:text-zinc-300 leading-relaxed mb-3">
+          {parseInline(content)}
+        </li>
+      );
+      return;
+    }
+    
+    // List item (unordered)
+    if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      const content = trimmed.substring(2);
+      elements.push(
+        <li key={keyCounter++} className="list-disc ml-6 pl-2 font-sans text-base text-zinc-600 dark:text-zinc-300 leading-relaxed mb-3">
+          {parseInline(content)}
+        </li>
+      );
+      return;
+    }
+    
+    // Paragraph
+    elements.push(
+      <p key={keyCounter++} className="font-sans text-base leading-relaxed text-zinc-600 dark:text-zinc-300 mb-5">
+        {parseInline(trimmed)}
+      </p>
+    );
+  });
+  
+  return elements;
+}
+
+// Sub-parser for inline elements (supports basic markdown bold: **text**)
+function parseInline(text: string): React.ReactNode[] {
+  const parts = text.split("**");
+  return parts.map((part, index) => {
+    if (index % 2 === 1) {
+      return (
+        <strong key={index} className="font-bold text-brand-charcoal dark:text-zinc-100">
+          {part}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 export default async function BlogPostPage({ params }: PageProps) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
@@ -38,11 +116,8 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  // Compile MDX content on server side using next-mdx-remote/rsc
-  const { content } = await compileMDX({
-    source: post.content,
-    options: { parseFrontmatter: false },
-  });
+  // Render the markdown using our lightweight custom parser
+  const parsedContent = parseMarkdown(post.content);
 
   return (
     <article className="flex-1 bg-brand-cream/10 dark:bg-brand-dark-bg/10 py-16 md:py-24">
@@ -101,16 +176,9 @@ export default async function BlogPostPage({ params }: PageProps) {
           />
         </div>
 
-        {/* MDX Body Content (Editorial typography) */}
-        <section className="prose prose-zinc dark:prose-invert max-w-none 
-          prose-headings:font-serif prose-headings:font-bold 
-          prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-          prose-p:font-sans prose-p:leading-relaxed prose-p:text-base prose-p:text-zinc-600 dark:prose-p:text-zinc-300 prose-p:mb-6
-          prose-li:font-sans prose-li:text-zinc-600 dark:prose-li:text-zinc-300 prose-li:leading-relaxed
-          prose-ul:list-disc prose-ol:list-decimal"
-        >
-          {content}
+        {/* Rendered Body Content */}
+        <section className="prose prose-zinc dark:prose-invert max-w-none">
+          {parsedContent}
         </section>
 
       </div>

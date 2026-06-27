@@ -9,6 +9,11 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  productionBrowserSourceMaps: false,
+  // Enable maximal bundle optimizations and tree-shaking
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'next-intl'],
+  }
 };
 
 export default withNextIntl(withMDX(nextConfig));
