@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Media from "@/components/Media";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,25 +10,25 @@ const dishesData = [
     key: "pho",
     rating: 5,
     region: "north",
-    imageUrl: "/images/IMG_20240714_122039.jpg",
+    imageUrl: "IMG_20240714_122039.jpg",
   },
   {
     key: "banhmi",
     rating: 4.5,
     region: "north",
-    imageUrl: "/images/IMG_20240714_123011.jpg",
+    imageUrl: "IMG_20240714_123011.jpg",
   },
   {
     key: "bunbohue",
     rating: 5,
     region: "central",
-    imageUrl: "/images/IMG_20240716_104832.jpg",
+    imageUrl: "IMG_20240716_104832.jpg",
   },
   {
     key: "caolau",
     rating: 4.5,
     region: "central",
-    imageUrl: "/images/IMG_20240716_104919.jpg",
+    imageUrl: "IMG_20240716_104919.jpg",
   },
 ];
 
@@ -120,7 +120,7 @@ export default function MiamPage() {
               >
                 {/* Image Section */}
                 <div className="relative aspect-video sm:aspect-square w-full sm:w-48 shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                  <Image
+                  <Media
                     src={dish.imageUrl}
                     alt={t(`dishes.${dish.key}.name`)}
                     fill

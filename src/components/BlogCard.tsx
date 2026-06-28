@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Media from "@/components/Media";
 import { Link } from "@/i18n/routing";
 import { motion } from "framer-motion";
 
@@ -33,7 +33,7 @@ export default function BlogCard({
     >
       {/* Feature Image Wrapper */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-        <Image
+        <Media
           src={imageUrl}
           alt={title}
           fill

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { assetUrl } from "@/components/Media";
 
 export interface PhotoItem {
   src: string;
@@ -11,18 +12,18 @@ export interface PhotoItem {
 }
 
 const defaultImages: PhotoItem[] = [
-  { src: "/images/IMG_20240702_195803.jpg", title: "Seoul Morning Glow", desc: "First walk near Myeongdong.", category: "seoul" },
-  { src: "/images/IMG_20240702_195806.jpg", title: "Palace Details", desc: "Intricate paintwork on temple rafters.", category: "seoul" },
-  { src: "/images/IMG_20240702_195808.jpg", title: "Seoul Street Vibe", desc: "Alleyways blending old and new.", category: "seoul" },
-  { src: "/images/IMG_20240702_195815.jpg", title: "Hanok Roofs", desc: "Overlooking Bukchon Hanok Village.", category: "seoul" },
-  { src: "/images/IMG_20240702_195839.jpg", title: "Jeju Coastal Path", desc: "Dramatic volcanic cliffs meets the ocean.", category: "jeju" },
-  { src: "/images/IMG_20240702_195841.jpg", title: "Dol Hareubang", desc: "Traditional stone guardians in Jeju.", category: "jeju" },
-  { src: "/images/IMG_20240702_202817.jpg", title: "Jeju Sunset", desc: "Soft pastel skies over the beach.", category: "jeju" },
-  { src: "/images/IMG_20240702_202849.jpg", title: "Waterfall Hikes", desc: "Trekking through lush volcanic valleys.", category: "jeju" },
-  { src: "/images/IMG_20240703_170941.jpg", title: "Jeju Tea Fields", desc: "Infinite green tea terraces under the sun.", category: "jeju" },
-  { src: "/images/IMG_20240703_170947.jpg", title: "Flight to Hanoi", desc: "Leaving Korea, heading towards Vietnam.", category: "hanoi" },
-  { src: "/images/IMG_20240703_170952.jpg", title: "Hanoi Street Life", desc: "First steps in the vibrant capital.", category: "hanoi" },
-  { src: "/images/FB_IMG_1722136503847.jpg", title: "Family Photo", desc: "Happy moments together on the trip.", category: "hanoi" },
+  { src: "IMG_20240702_195803.jpg", title: "Seoul Morning Glow", desc: "First walk near Myeongdong.", category: "seoul" },
+  { src: "IMG_20240702_195806.jpg", title: "Palace Details", desc: "Intricate paintwork on temple rafters.", category: "seoul" },
+  { src: "IMG_20240702_195808.jpg", title: "Seoul Street Vibe", desc: "Alleyways blending old and new.", category: "seoul" },
+  { src: "IMG_20240702_195815.jpg", title: "Hanok Roofs", desc: "Overlooking Bukchon Hanok Village.", category: "seoul" },
+  { src: "IMG_20240702_195839.jpg", title: "Jeju Coastal Path", desc: "Dramatic volcanic cliffs meets the ocean.", category: "jeju" },
+  { src: "IMG_20240702_195841.jpg", title: "Dol Hareubang", desc: "Traditional stone guardians in Jeju.", category: "jeju" },
+  { src: "IMG_20240702_202817.jpg", title: "Jeju Sunset", desc: "Soft pastel skies over the beach.", category: "jeju" },
+  { src: "IMG_20240702_202849.jpg", title: "Waterfall Hikes", desc: "Trekking through lush volcanic valleys.", category: "jeju" },
+  { src: "IMG_20240703_170941.jpg", title: "Jeju Tea Fields", desc: "Infinite green tea terraces under the sun.", category: "jeju" },
+  { src: "IMG_20240703_170947.jpg", title: "Flight to Hanoi", desc: "Leaving Korea, heading towards Vietnam.", category: "hanoi" },
+  { src: "IMG_20240703_170952.jpg", title: "Hanoi Street Life", desc: "First steps in the vibrant capital.", category: "hanoi" },
+  { src: "FB_IMG_1722136503847.jpg", title: "Family Photo", desc: "Happy moments together on the trip.", category: "hanoi" },
 ];
 
 interface PhotoMasonryProps {
@@ -74,7 +75,7 @@ export default function PhotoMasonry({ images = defaultImages }: PhotoMasonryPro
             >
               <div className="relative w-full aspect-auto min-h-[220px]">
                 <img
-                  src={img.src}
+                  src={assetUrl(img.src)}
                   alt={img.title}
                   className="w-full h-auto object-cover rounded-3xl transition-transform duration-700 ease-[0.16, 1, 0.3, 1] group-hover:scale-102"
                   loading="lazy"
@@ -155,7 +156,7 @@ export default function PhotoMasonry({ images = defaultImages }: PhotoMasonryPro
                 className="relative aspect-auto max-h-[70vh] flex justify-center"
               >
                 <img
-                  src={images[activeIndex].src}
+                  src={assetUrl(images[activeIndex].src)}
                   alt={images[activeIndex].title}
                   className="max-h-[70vh] w-auto object-contain rounded-2xl shadow-2xl border border-white/10"
                 />

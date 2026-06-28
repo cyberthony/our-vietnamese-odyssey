@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Media from "@/components/Media";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import InteractiveMap from "@/components/InteractiveMap";
@@ -80,8 +80,8 @@ export default function HomePageClient({ latestPosts }: HomePageClientProps) {
           transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-6 relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl border border-zinc-200/50 dark:border-[#222225]/50 bg-zinc-200 dark:bg-zinc-900"
         >
-          <Image
-            src="/images/R02_6119.JPG"
+          <Media
+            src="R02_6119.JPG"
             alt="Family travel odyssey image"
             fill
             priority

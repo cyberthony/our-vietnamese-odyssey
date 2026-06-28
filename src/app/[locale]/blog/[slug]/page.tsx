@@ -1,6 +1,6 @@
 import { getPostBySlug, getAllPosts } from "@/lib/mdx";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import Media from "@/components/Media";
 import { Link } from "@/i18n/routing";
 import React from "react";
 import { setRequestLocale } from "next-intl/server";
@@ -168,7 +168,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Cover Image */}
         <div className="relative aspect-[16/9] w-full rounded-3xl overflow-hidden shadow-lg border border-zinc-200/50 dark:border-brand-dark-border/50 bg-zinc-200 dark:bg-zinc-900">
-          <Image
+          <Media
             src={post.metadata.imageUrl}
             alt={post.metadata.title}
             fill

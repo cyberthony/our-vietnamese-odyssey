@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: false,
   // Enable maximal bundle optimizations and tree-shaking

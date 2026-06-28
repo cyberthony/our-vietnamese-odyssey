@@ -30,8 +30,9 @@ our-vietnamese-odyssey/
 ├── messages/                    # Fichiers de dictionnaires i18n
 │   ├── fr.json                  # Traductions françaises
 │   └── vi.json                  # Traductions vietnamiennes
-├── public/
-│   └── images/                  # Galerie d'images locales du voyage
+├── public/                     # Assets statiques (redirections, favicon, etc.)
+├── scripts/
+│   └── upload-to-r2.mjs         # Script d'upload récursif vers Cloudflare R2
 ├── src/
 │   ├── app/
 │   │   └── [locale]/            # Routage dynamique i18n Next.js
@@ -49,6 +50,7 @@ our-vietnamese-odyssey/
 │   │   ├── Footer.tsx           # Pied de page
 │   │   ├── Header.tsx           # Navigation bar (avec sélecteurs et menu mobile burger)
 │   │   ├── InteractiveMap.tsx   # Carte vectorielle SVG interactive
+│   │   ├── Media.tsx            # Composant média unifié (R2 + next/image + vidéo)
 │   │   ├── PhotoMasonry.tsx     # Galerie Masonry asymétrique + Lightbox
 │   │   ├── ThemeProvider.tsx    # Gestionnaire du Dark Mode (React Context)
 │   │   └── Timeline.tsx         # Frise chronologique avec scroll reveal
@@ -79,8 +81,9 @@ Afin d'assurer la compatibilité avec Cloudflare Pages et de contourner définit
 1. **Rendu Statique (SSG)** : Le site est configuré en export 100% statique dans [next.config.ts](file:///d:/Odyssey/our-vietnamese-odyssey/next.config.ts) (`output: 'export'`). Cela désactive toutes les fonctions serveurs au runtime : tout le site est compilé sous forme de fichiers HTML statiques dans le dossier `/out`.
 2. **Support de Localisation en Statique** : Pour permettre le pré-rendu statique des routes avec `next-intl`, nous avons déclaré la fonction globale `generateStaticParams()` dans le layout racine [layout.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/[locale]/layout.tsx) pour les locales `fr` et `vi`, et appelé `setRequestLocale(locale)` dans tous les composants serveurs de pages (`layout.tsx`, `page.tsx`, `blog/page.tsx`, `blog/[slug]/page.tsx`).
 3. **Extraction de données & Parseur léger** : Le contenu brut des articles est lu depuis l'objet typé [src/data/posts.ts](file:///d:/Odyssey/our-vietnamese-odyssey/src/data/posts.ts) en mémoire et rendu à l'aide d'un parseur Markdown custom léger en React, supprimant ainsi les lourdes dépendances de compilation dynamique de type `next-mdx-remote`.
-4. **Optimisation des Images** : L'optimisation des images à la volée de Next.js requérant un serveur Node.js actif, elle a été débrayée dans la configuration via `unoptimized: true` pour convenir aux hébergements statiques comme Cloudflare Pages.
-5. **Gestion de la Redirection Racine (/)** : L'export statique n'exécutant plus de middleware côté serveur pour rediriger la racine `/` vers `/fr` (langue par défaut), nous avons mis en place un double mécanisme :
+4. **Stockage des Médias sur Cloudflare R2** : Toutes les images et vidéos du site sont hébergées sur un bucket Cloudflare R2 (`odeysseyr2`) plutôt que dans le dépôt Git. Le composant `Media.tsx` préfixe automatiquement les chemins relatifs avec l'URL publique du bucket (définie dans `.env.local` via `NEXT_PUBLIC_ASSETS_URL`). Un script `npm run upload-r2` (basé sur `@aws-sdk/client-s3`) permet d'uploader récursivement les médias avec détection de doublons via `HeadObject`.
+5. **Optimisation des Images** : L'optimisation des images à la volée de Next.js requérant un serveur Node.js actif, elle a été débrayée dans la configuration via `unoptimized: true` pour convenir aux hébergements statiques comme Cloudflare Pages.
+6. **Gestion de la Redirection Racine (/)** : L'export statique n'exécutant plus de middleware côté serveur pour rediriger la racine `/` vers `/fr` (langue par défaut), nous avons mis en place un double mécanisme :
    * Une page racine [src/app/page.tsx](file:///d:/Odyssey/our-vietnamese-odyssey/src/app/page.tsx) effectuant une redirection côté client via Next.js.
    * Un fichier de configuration [public/_redirects](file:///d:/Odyssey/our-vietnamese-odyssey/public/_redirects) copié à la racine du dossier de déploiement (`/out/_redirects`) pour indiquer à la couche CDN de Cloudflare Pages d'effectuer une redirection Edge instantanée en code HTTP 302 vers `/fr`.
 
@@ -117,3 +120,17 @@ Voici les chantiers recommandés pour continuer à enrichir l'application :
 ### 📊 5. Optimisations de Production & Performance
 - **LCP Images** : Les images imposantes détectées comme LCP (Largest Contentful Paint) par le navigateur gagneraient à recevoir la propriété `priority` (déjà intégrée sur le Hero et les couvertures d'articles de blog).
 - **Smooth Scroll** : Gérer l'attribut `data-scroll-behavior="smooth"` au niveau de l'élément racine pour les transitions de route sans à-coups.
+
+---
+
+## 🗓️ Changelog
+
+### 28 Juin 2026 — Migration Médias vers Cloudflare R2
+
+- **Contexte** : Les 17 images du projet (61 Mo) étaient stockées dans `public/images/`, alourdissant le dépôt Git et compliquant les déploiements.
+- **Solution** : Migration complète vers un bucket Cloudflare R2 (`odeysseyr2`) avec URL publique.
+- **Composant `Media.tsx`** : Remplace `next/image` dans tous les composants. Préfixe automatiquement les chemins relatifs avec `NEXT_PUBLIC_ASSETS_URL`. Supporte les images (via `next/image` + lazy-loading natif) et les vidéos (via balise `<video>` HTML5). Exporte également la fonction utilitaire `assetUrl()` pour les cas où `next/image` n'est pas adapté (ex: masonry layout dans `PhotoMasonry`).
+- **Script `upload-to-r2.mjs`** : Upload récursif avec vérification d'existence via `HeadObject` — seul un fichier nouveau ou de taille différente est uploadé. Utilise le SDK `@aws-sdk/client-s3` (compatible API S3 de R2).
+- **Credentials** : Fichier `.env.r2` (gitignoré) contenant `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_ENDPOINT`, `R2_BUCKET`. Template dans `.env.r2.example`.
+- **Fichiers migrés** : `BlogCard.tsx`, `PhotoMasonry.tsx`, `HomePageClient.tsx`, `blog/[slug]/page.tsx`, `miam/page.tsx`, `photos/page.tsx`, `data/posts.ts`.
+- **Résultat** : 17 images sur R2, 0 fichier local, build statique OK, lazy-loading préservé.
