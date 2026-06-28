@@ -10,25 +10,33 @@ const dishesData = [
     key: "pho",
     rating: 5,
     region: "north",
-    imageUrl: "IMG_20240714_122039.jpg",
+    // Photo HD : Phở Bò — bol fumant, herbes fraîches, citron vert, baguettes
+    // Crédit : RDNE Stock project / Pexels (licence libre)
+    imageUrl: "https://images.pexels.com/photos/6646351/pexels-photo-6646351.jpeg",
   },
   {
     key: "banhmi",
     rating: 4.5,
     region: "north",
-    imageUrl: "IMG_20240714_123011.jpg",
+    // Photo HD : Bánh Mì — scène de rue à Đống Đa, Hanoi, avec Bia Ha Noi
+    // Crédit : Flo Dahm / Pexels (licence libre)
+    imageUrl: "https://images.pexels.com/photos/1483768/pexels-photo-1483768.jpeg",
   },
   {
     key: "bunbohue",
     rating: 5,
     region: "central",
-    imageUrl: "IMG_20240716_104832.jpg",
+    // Photo HD : Bún Bò Huế — soupe de nouilles épicée au bœuf, vue du dessus
+    // Crédit : JANG ‘S 🍂 / Pexels (licence libre)
+    imageUrl: "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg",
   },
   {
     key: "caolau",
     rating: 4.5,
     region: "central",
-    imageUrl: "IMG_20240716_104919.jpg",
+    // Photo HD : Cao Lầu — nouilles épaisses au porc, herbes et crackers, spécialité de Hội An
+    // Crédit : Quang Nguyen Vinh / Pexels (licence libre)
+    imageUrl: "https://images.pexels.com/photos/2134165/pexels-photo-2134165.jpeg",
   },
 ];
 
