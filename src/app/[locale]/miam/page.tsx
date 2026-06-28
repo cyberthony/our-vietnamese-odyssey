@@ -52,10 +52,13 @@ const dishesData = [
 export default function MiamPage() {
   const t = useTranslations("MiamPage");
   const [activeRegion, setActiveRegion] = useState<"all" | "north" | "central" | "south" | "homemade">("all");
+  const [expandedDish, setExpandedDish] = useState<string | null>(null);
 
   const filteredDishes = dishesData.filter(
     (dish) => activeRegion === "all" || dish.region === activeRegion
   );
+
+  const expanded = dishesData.find((d) => d.key === expandedDish);
 
   return (
     <div className="flex-1 bg-brand-cream/20 dark:bg-brand-dark-bg/20 py-16 md:py-24">
@@ -143,7 +146,8 @@ export default function MiamPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4 }}
-                className="flex flex-col sm:flex-row bg-white dark:bg-brand-dark-card border border-zinc-200/50 dark:border-brand-dark-border rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
+                className="flex flex-col sm:flex-row bg-white dark:bg-brand-dark-card border border-zinc-200/50 dark:border-brand-dark-border rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer"
+                onClick={() => setExpandedDish(dish.key)}
               >
                 {/* Image / Video Section */}
                 <div className="relative aspect-video sm:aspect-square w-full sm:w-48 shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
@@ -154,6 +158,7 @@ export default function MiamPage() {
                       muted
                       loop
                       playsInline
+                      autoPlay
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   ) : (
@@ -228,6 +233,98 @@ export default function MiamPage() {
             </p>
           </div>
         )}
+
+        {/* ── Lightbox Modal ──────────────────────────────────── */}
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              key="lightbox"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-8"
+              onClick={() => setExpandedDish(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="relative max-w-4xl w-full max-h-[90vh] bg-white dark:bg-brand-dark-card rounded-3xl overflow-hidden shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Bouton fermer */}
+                <button
+                  onClick={() => setExpandedDish(null)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors"
+                  aria-label="Fermer"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Média plein écran */}
+                <div className="relative aspect-video bg-zinc-900">
+                  {expanded.videoUrl ? (
+                    <Media
+                      as="video"
+                      src={expanded.videoUrl}
+                      controls
+                      autoPlay
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  ) : (
+                    <Media
+                      src={expanded.imageUrl}
+                      alt={t(`dishes.${expanded.key}.name`)}
+                      fill
+                      className="object-contain"
+                    />
+                  )}
+                </div>
+
+                {/* Infos */}
+                <div className="p-6 md:p-8 space-y-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-2">
+                      <span className="text-[10px] uppercase tracking-wider font-sans font-bold text-brand-terracotta dark:text-brand-rose bg-brand-rose/10 dark:bg-brand-rose/5 px-2.5 py-1 rounded-full">
+                        {t(`filter${expanded.region.charAt(0).toUpperCase() + expanded.region.slice(1)}`)}
+                      </span>
+                      <h2 className="font-serif text-2xl md:text-3xl font-bold text-brand-charcoal dark:text-zinc-100">
+                        {t(`dishes.${expanded.key}.name`)}
+                      </h2>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      {Array.from({ length: 5 }).map((_, i) => {
+                        const starVal = i + 1;
+                        const isFull = starVal <= expanded.rating;
+                        const isHalf = !isFull && starVal - 0.5 <= expanded.rating;
+                        return (
+                          <svg
+                            key={i}
+                            className={`w-5 h-5 ${isFull ? "text-amber-400 fill-current" : isHalf ? "text-amber-400 fill-current" : "text-zinc-200 dark:text-zinc-800 fill-current"}`}
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                          </svg>
+                        );
+                      })}
+                      <span className="text-sm font-bold font-sans text-brand-charcoal dark:text-zinc-300 ml-1">
+                        {expanded.rating}/5
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-sm font-sans leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    {t(`dishes.${expanded.key}.desc`)}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div>
     </div>

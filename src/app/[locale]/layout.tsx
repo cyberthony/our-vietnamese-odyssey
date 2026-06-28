@@ -48,7 +48,9 @@ export default async function LocaleLayout({
       className={`${playfair.variable} ${plusJakarta.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
+      <head />
+      <body className="min-h-full flex flex-col bg-brand-cream text-brand-charcoal dark:bg-brand-dark-bg dark:text-zinc-100 transition-colors duration-300">
+        {/* Script anti-flash dark mode — hors du <head> pour éviter le warning React 19 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -66,8 +68,6 @@ export default async function LocaleLayout({
             `,
           }}
         />
-      </head>
-      <body className="min-h-full flex flex-col bg-brand-cream text-brand-charcoal dark:bg-brand-dark-bg dark:text-zinc-100 transition-colors duration-300">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <Header />
