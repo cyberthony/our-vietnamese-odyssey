@@ -38,11 +38,20 @@ const dishesData = [
     // Crédit : Quang Nguyen Vinh / Pexels (licence libre)
     imageUrl: "https://images.pexels.com/photos/2134165/pexels-photo-2134165.jpeg",
   },
+  {
+    key: "bunrieucua",
+    rating: 5,
+    region: "homemade",
+    // Vidéo HD : Bún Riêu Cua — fait maison, filmé par la famille
+    videoUrl: "bun-rieu-cua-fait-maison.mp4",
+    // Image de couverture pour la vignette (fallback avant lecture)
+    imageUrl: "https://images.pexels.com/photos/6454810/pexels-photo-6454810.jpeg",
+  },
 ];
 
 export default function MiamPage() {
   const t = useTranslations("MiamPage");
-  const [activeRegion, setActiveRegion] = useState<"all" | "north" | "central" | "south">("all");
+  const [activeRegion, setActiveRegion] = useState<"all" | "north" | "central" | "south" | "homemade">("all");
 
   const filteredDishes = dishesData.filter(
     (dish) => activeRegion === "all" || dish.region === activeRegion
@@ -111,6 +120,16 @@ export default function MiamPage() {
           >
             {t("filterSouth")}
           </button>
+          <button
+            onClick={() => setActiveRegion("homemade")}
+            className={`px-5 py-2 rounded-full text-xs font-bold font-sans tracking-wide uppercase transition-all duration-300 ${
+              activeRegion === "homemade"
+                ? "bg-brand-terracotta dark:bg-brand-rose text-brand-cream dark:text-brand-charcoal shadow-sm"
+                : "text-zinc-500 hover:text-brand-charcoal dark:hover:text-white"
+            }`}
+          >
+            {t("filterHomemade")}
+          </button>
         </div>
 
         {/* Dishes Grid */}
@@ -126,15 +145,26 @@ export default function MiamPage() {
                 transition={{ duration: 0.4 }}
                 className="flex flex-col sm:flex-row bg-white dark:bg-brand-dark-card border border-zinc-200/50 dark:border-brand-dark-border rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
               >
-                {/* Image Section */}
+                {/* Image / Video Section */}
                 <div className="relative aspect-video sm:aspect-square w-full sm:w-48 shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                  <Media
-                    src={dish.imageUrl}
-                    alt={t(`dishes.${dish.key}.name`)}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 192px"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+                  {dish.videoUrl ? (
+                    <Media
+                      as="video"
+                      src={dish.videoUrl}
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  ) : (
+                    <Media
+                      src={dish.imageUrl}
+                      alt={t(`dishes.${dish.key}.name`)}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 192px"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  )}
                 </div>
 
                 {/* Info Content Section */}

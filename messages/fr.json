@@ -33,6 +33,7 @@
     "filterNorth": "Nord du Vietnam",
     "filterCentral": "Centre du Vietnam",
     "filterSouth": "Sud du Vietnam",
+    "filterHomemade": "Fait maison",
     "rating": "Avis de la famille",
     "origin": "Origine",
     "dishes": {
@@ -51,6 +52,10 @@
       "caolau": {
         "name": "Cao Lầu (Hoi An)",
         "desc": "Plat de nouilles unique et exclusif à Hoi An. Les nouilles sont préparées avec l'eau de puits locaux spécifiques, garnies de porc mariné et de crackers croustillants."
+      },
+      "bunrieucua": {
+        "name": "Bún Riêu Cua (Fait maison)",
+        "desc": "La star de la famille ! Un bouillon tomate-crabe parfumé au ruốc et à la pâte de crevette, garni de vermicelles de riz, de tofu croustillant, de tomates fraîches et d'herbes du jardin. Le secret ? Les crabes pilés maison qui libèrent toute leur saveur dans le bouillon."
       }
     }
   },

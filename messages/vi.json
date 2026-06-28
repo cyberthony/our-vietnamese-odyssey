@@ -33,6 +33,7 @@
     "filterNorth": "Miền Bắc",
     "filterCentral": "Miền Trung",
     "filterSouth": "Miền Nam",
+    "filterHomemade": "Nhà làm",
     "rating": "Đánh giá của gia đình",
     "origin": "Xuất xứ",
     "dishes": {
@@ -51,6 +52,10 @@
       "caolau": {
         "name": "Cao Lầu (Hội An)",
         "desc": "Món mì độc nhất vô nhị chỉ có tại Hội An. Sợi mì được chế biến bằng nước giếng Bá Lễ cổ xưa, ăn kèm thịt xá xíu và ram giòn."
+      },
+      "bunrieucua": {
+        "name": "Bún Riêu Cua (Nhà làm)",
+        "desc": "Ngôi sao của gia đình! Nước dùng cà chua cua thơm lừng vị ruốc và mắm tôm, ăn kèm bún sợi nhỏ, đậu hũ chiên giòn, cà chua tươi và rau thơm hái từ vườn. Bí quyết? Cua đồng tự giã tay tiết ra hết vị ngọt vào nồi nước dùng."
       }
     }
   },
